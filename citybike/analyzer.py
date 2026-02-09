@@ -12,7 +12,6 @@ Students should implement the cleaning logic and at least 10 analytics methods.
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from typing import Optional
 
 
 DATA_DIR = Path(__file__).resolve().parent / "data"
@@ -29,9 +28,9 @@ class BikeShareSystem:
     """
 
     def __init__(self) -> None:
-        self.trips: Optional[pd.DataFrame] = None
-        self.stations: Optional[pd.DataFrame] = None
-        self.maintenance: Optional[pd.DataFrame] = None
+        self.trips: pd.DataFrame | None = None
+        self.stations: pd.DataFrame | None = None
+        self.maintenance: pd.DataFrame | None = None
 
     # ------------------------------------------------------------------
     # Data loading

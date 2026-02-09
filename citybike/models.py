@@ -19,7 +19,6 @@ TODO for students:
 
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Optional
 
 
 # ---------------------------------------------------------------------------
@@ -34,7 +33,7 @@ class Entity(ABC):
         created_at: Timestamp when the entity was created.
     """
 
-    def __init__(self, id: str, created_at: Optional[datetime] = None) -> None:
+    def __init__(self, id: str, created_at: datetime | None = None) -> None:
         if not id or not isinstance(id, str):
             raise ValueError("id must be a non-empty string")
         self._id = id

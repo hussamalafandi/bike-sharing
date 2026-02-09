@@ -11,14 +11,15 @@ Document the Big-O complexity of each algorithm.
 """
 
 import timeit
-from typing import Any, Callable, List, Optional
+from collections.abc import Callable
+from typing import Any
 
 
 # ---------------------------------------------------------------------------
 # Sorting — Merge Sort (example skeleton)
 # ---------------------------------------------------------------------------
 
-def merge_sort(data: List[Any], key: Callable = lambda x: x) -> List[Any]:
+def merge_sort(data: list[Any], key: Callable = lambda x: x) -> list[Any]:
     """Sort *data* using the merge-sort algorithm.
 
     Args:
@@ -48,13 +49,13 @@ def merge_sort(data: List[Any], key: Callable = lambda x: x) -> List[Any]:
 
 
 def _merge(
-    left: List[Any], right: List[Any], key: Callable
-) -> List[Any]:
+    left: list[Any], right: list[Any], key: Callable
+) -> list[Any]:
     """Merge two sorted lists into one sorted list.
 
     TODO: implement the merge logic.
     """
-    result: List[Any] = []
+    result: list[Any] = []
     i = j = 0
 
     # TODO: compare elements from left and right using key(),
@@ -72,10 +73,10 @@ def _merge(
 # ---------------------------------------------------------------------------
 
 def binary_search(
-    sorted_data: List[Any],
+    sorted_data: list[Any],
     target: Any,
     key: Callable = lambda x: x,
-) -> Optional[int]:
+) -> int | None:
     """Search for *target* in a sorted list using binary search.
 
     Args:

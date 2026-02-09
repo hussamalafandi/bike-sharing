@@ -9,7 +9,6 @@ Students should implement:
 """
 
 import numpy as np
-from typing import Dict
 
 
 # ---------------------------------------------------------------------------
@@ -43,7 +42,7 @@ def station_distance_matrix(
 # Trip statistics
 # ---------------------------------------------------------------------------
 
-def trip_duration_stats(durations: np.ndarray) -> Dict[str, float]:
+def trip_duration_stats(durations: np.ndarray) -> dict[str, float]:
     """Compute summary statistics for trip durations.
 
     Args:
