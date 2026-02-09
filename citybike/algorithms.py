@@ -1,10 +1,15 @@
 """
 Custom sorting and searching algorithms.
 
+Provided:
+    - merge_sort
+    - benchmark_sort
+
 Students must implement:
-    1. At least one sorting algorithm from scratch (e.g., merge sort)
-    2. At least one searching algorithm from scratch (e.g., binary search)
-    3. Benchmarks comparing custom vs. built-in implementations
+    - insertion_sort   — second sorting algorithm
+    - binary_search    — search on sorted data
+    - linear_search    — brute-force search for comparison
+    - benchmark_search — timing comparison for search algorithms
 
 Use timeit to measure execution times.
 Document the Big-O complexity of each algorithm.
@@ -16,7 +21,7 @@ from typing import Any
 
 
 # ---------------------------------------------------------------------------
-# Sorting — Merge Sort (example skeleton)
+# Sorting — Merge Sort
 # ---------------------------------------------------------------------------
 
 def merge_sort(data: list[Any], key: Callable = lambda x: x) -> list[Any]:
@@ -32,11 +37,6 @@ def merge_sort(data: list[Any], key: Callable = lambda x: x) -> list[Any]:
     Complexity:
         Time  — O(n log n)
         Space — O(n)
-
-    TODO:
-        - Implement the divide step (split list in half)
-        - Implement the merge step (combine two sorted halves)
-        - Return the fully sorted list
     """
     if len(data) <= 1:
         return list(data)
@@ -51,25 +51,52 @@ def merge_sort(data: list[Any], key: Callable = lambda x: x) -> list[Any]:
 def _merge(
     left: list[Any], right: list[Any], key: Callable
 ) -> list[Any]:
-    """Merge two sorted lists into one sorted list.
-
-    TODO: implement the merge logic.
-    """
+    """Merge two sorted lists into one sorted list."""
     result: list[Any] = []
     i = j = 0
 
-    # TODO: compare elements from left and right using key(),
-    #       append the smaller one to result, advance the pointer.
-    # ----- your code here -----
+    while i < len(left) and j < len(right):
+        if key(left[i]) <= key(right[j]):
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
 
-    # TODO: append any remaining elements from left or right
-    # ----- your code here -----
-
+    result.extend(left[i:])
+    result.extend(right[j:])
     return result
 
 
 # ---------------------------------------------------------------------------
-# Searching — Binary Search (example skeleton)
+# Sorting — Insertion Sort (TODO)
+# ---------------------------------------------------------------------------
+
+def insertion_sort(data: list[Any], key: Callable = lambda x: x) -> list[Any]:
+    """Sort *data* using the insertion-sort algorithm.
+
+    Args:
+        data: List of items to sort.
+        key: Function that extracts a comparison key from each item.
+
+    Returns:
+        A new sorted list (the original is not modified).
+
+    Complexity:
+        Time  — O(n²) worst / average, O(n) best (already sorted)
+        Space — O(n) for the copy
+
+    TODO:
+        - Copy the input list
+        - Iterate from index 1 to len(data)
+        - For each element, shift larger elements to the right
+        - Insert the current element at the correct position
+    """
+    raise NotImplementedError("insertion_sort")
+
+
+# ---------------------------------------------------------------------------
+# Searching — Binary Search (TODO)
 # ---------------------------------------------------------------------------
 
 def binary_search(
@@ -107,6 +134,34 @@ def binary_search(
 
 
 # ---------------------------------------------------------------------------
+# Searching — Linear Search (TODO)
+# ---------------------------------------------------------------------------
+
+def linear_search(
+    data: list[Any],
+    target: Any,
+    key: Callable = lambda x: x,
+) -> int | None:
+    """Search for *target* by scanning every element in *data*.
+
+    Args:
+        data: List of items (does not need to be sorted).
+        target: The value to search for.
+        key: Function that extracts the comparison value from each item.
+
+    Returns:
+        The index of the first matching item, or None if not found.
+
+    Complexity:
+        Time  — O(n)
+        Space — O(1)
+
+    TODO: implement the linear scan.
+    """
+    raise NotImplementedError("linear_search")
+
+
+# ---------------------------------------------------------------------------
 # Benchmarking helper
 # ---------------------------------------------------------------------------
 
@@ -115,8 +170,6 @@ def benchmark_sort(data: list, key: Callable = lambda x: x, repeats: int = 5) ->
 
     Returns:
         A dict with 'merge_sort_ms' and 'builtin_sorted_ms' timings.
-
-    TODO: complete the timing calls using timeit.repeat or timeit.timeit
     """
     custom_time = timeit.timeit(
         lambda: merge_sort(data, key=key), number=repeats
@@ -129,3 +182,22 @@ def benchmark_sort(data: list, key: Callable = lambda x: x, repeats: int = 5) ->
         "merge_sort_ms": round(custom_time / repeats * 1000, 2),
         "builtin_sorted_ms": round(builtin_time / repeats * 1000, 2),
     }
+
+
+def benchmark_search(
+    data: list,
+    target: Any,
+    key: Callable = lambda x: x,
+    repeats: int = 5,
+) -> dict:
+    """Compare custom binary_search vs. built-in methods.
+
+    *data* must already be sorted by *key* for binary_search.
+
+    Returns:
+        A dict with 'binary_search_ms', 'linear_search_ms',
+        and 'builtin_in_ms' timings.
+
+    TODO: implement once binary_search and linear_search are complete.
+    """
+    raise NotImplementedError("benchmark_search")
