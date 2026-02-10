@@ -31,10 +31,23 @@ def station_distance_matrix(
         A 2-D symmetric distance matrix of shape (n, n).
 
     TODO: implement using NumPy broadcasting (no Python loops).
+
+    Hints:
+        1. Reshape latitudes to a column vector: latitudes[:, np.newaxis]  → shape (n, 1)
+        2. Subtracting the original row vector gives all pairwise differences:
+               lat_diff = latitudes[:, np.newaxis] - latitudes[np.newaxis, :]  → shape (n, n)
+        3. Do the same for longitudes.
+        4. Apply the formula: np.sqrt(lat_diff**2 + lon_diff**2)
     """
-    # Hint: reshape arrays to (n,1) and (1,n) for broadcasting
+    # Step 1: compute pairwise latitude differences
     # lat_diff = latitudes[:, np.newaxis] - latitudes[np.newaxis, :]
-    # ...
+
+    # Step 2: compute pairwise longitude differences
+    # lon_diff = ...
+
+    # Step 3: combine with Euclidean formula
+    # np.sqrt(lat_diff**2 + lon_diff**2)
+
     raise NotImplementedError("station_distance_matrix")
 
 
@@ -81,9 +94,15 @@ def detect_outliers_zscore(
         Boolean array — True where the value is an outlier.
 
     TODO: compute z-scores and return the boolean mask.
+
+    Hints:
+        1. Compute the mean:  mean = np.mean(values)
+        2. Compute the std:   std  = np.std(values)
+        3. Guard against std == 0 (return all-False array)
+        4. Compute z-scores:  z = (values - mean) / std
+        5. Return boolean:    np.abs(z) > threshold
     """
-    # z = (values - mean) / std
-    # return np.abs(z) > threshold
+
     raise NotImplementedError("detect_outliers_zscore")
 
 
@@ -111,5 +130,25 @@ def calculate_fares(
         1-D array of trip fares.
 
     TODO: implement a single vectorized expression (no loops).
+
+    Hints:
+        The fare for a single trip is:
+            fare = unlock_fee + (per_minute * duration) + (per_km * distance)
+
+        With NumPy, you can compute this for ALL trips at once because
+        arithmetic on arrays is element-wise:
+            fares = unlock_fee + per_minute * durations + per_km * distances
+
+        This single line replaces a Python for-loop over every trip.
+
+    Example:
+        >>> durations = np.array([10, 20, 30])
+        >>> distances = np.array([2.0, 5.0, 8.0])
+        >>> calculate_fares(durations, distances, per_minute=0.15, per_km=0.10, unlock_fee=1.0)
+        array([2.7, 4.5, 6.3])
+        # trip 1: 1.0 + 0.15*10 + 0.10*2.0 = 2.70
+        # trip 2: 1.0 + 0.15*20 + 0.10*5.0 = 4.50
+        # trip 3: 1.0 + 0.15*30 + 0.10*8.0 = 6.30
     """
+
     raise NotImplementedError("calculate_fares")
